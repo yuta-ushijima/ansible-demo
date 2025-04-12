@@ -1,0 +1,6 @@
+---
+# tasks file for git
+- name: Install Git
+  ansible.builtin.yum:
+    name: git
+    state: present

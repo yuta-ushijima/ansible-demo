@@ -1,0 +1,7 @@
+---
+# vars file for nodejs
+nvm_version: "v0.39.7"
+node_version: "17"
+user: ec2-user
+home_dir: "/home/ec2-user"
+nvm_dir: "/home/ec2-user/.nvm"

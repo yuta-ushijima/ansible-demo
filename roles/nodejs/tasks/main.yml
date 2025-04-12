@@ -1,0 +1,44 @@
+---
+# tasks file for nodejs
+- name: Download nvm install script if not already installed
+  become_user: "{{ user }}"
+  ansible.builtin.get_url:
+    url: "https://raw.githubusercontent.com/nvm-sh/nvm/{{ nvm_version }}/install.sh"
+    dest: "{{ home_dir }}/nvm_install.sh"
+    mode: '0755'
+  when: not (nvm_dir is directory)
+- name: Run nvm install script
+  become_user: "{{ user }}"
+  shell: "{{ home_dir }}/nvm_install.sh"
+  args:
+    creates: "{{ nvm_dir }}/nvm.sh"
+- name: Check if Node.js {{ node_version }} is installed
+  become_user: "{{ user }}"
+  shell: |
+    export NVM_DIR="{{ nvm_dir }}"
+    . "$NVM_DIR/nvm.sh"
+    nvm ls {{ node_version }} | grep -q {{ node_version }}
+  register: node_check
+    #failed_when: false
+    #changed_when: false
+  check_mode: no
+  failed_when: no
+  changed_when: no
+- name: Install Node.js {{ node_version }} with nvm
+  become_user: "{{ user }}"
+  shell: |
+    export NVM_DIR="{{ nvm_dir }}"
+    . "$NVM_DIR/nvm.sh"
+    nvm install {{ node_version }}
+  register: result
+  failed_when: ansible_check_mode==False and result.rc!=0
+  when: node_check.rc != 0
+- name: Set Node.js {{ node_version }} as default
+  become_user: "{{ user }}"
+  shell: |
+    export NVM_DIR="{{ nvm_dir }}"
+    . "$NVM_DIR/nvm.sh"
+    nvm alias default {{ node_version }}
+  register: result
+  failed_when: ansible_check_mode==False and result.rc!=0
+  when: node_check.rc != 0
