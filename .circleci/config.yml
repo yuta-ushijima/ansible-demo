@@ -16,7 +16,7 @@ jobs:
           name: Deploy Cloudformation
           command: |
             set -x
-            aws cloudformation deploy --template-file ./cloudformation/service.yml --stack-name my-new-stack
+            aws cloudformation deploy --template-file project/cloudformation/service.yml --stack-name my-new-stack
 workflows:
   application-provisioning:
     jobs:
