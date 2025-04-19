@@ -32,6 +32,6 @@ workflows:
   application-provisioning:
     jobs:
       - execute-cloudformation
-      - execute-ansible
+      - execute-ansible:
           requires:
             - execute-cloudformation
