@@ -1,7 +1,7 @@
 ---
 
 - name: Setup Target Node
-  hosts: all
+  hosts: 54.249.79.236
   become: yes
   roles:
     - { role: git }
