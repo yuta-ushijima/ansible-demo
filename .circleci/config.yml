@@ -13,6 +13,10 @@ jobs:
           aws_secret_access_key: AWS_SECRET_ACCESS_KEY
           region: AWS_DEFAULT_REGION
       - run:
+          name: debug file structure
+          command: |
+            ls -la
+      - run:
           name: Deploy Cloudformation
           command: |
             set -x
