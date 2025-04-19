@@ -32,12 +32,12 @@ jobs:
               - "SHA256:C/2Tyc2h823YnNy9EMJfkoLmRI4b7hFIQKlf7mC2whU"
         - ansible-playbook/install:
             version: 2.10.7
+#         - ansible-playbook/playbook:
+#             playbook: playbook.yml
+#             playbook-options: --list-hosts -i inventory
         - ansible-playbook/playbook:
             playbook: playbook.yml
-            playbook-options: --list-hosts -i inventory
-        - ansible-playbook/playbook:
-            playbook: playbook.yml
-            playbook-options: -u ec2-user -i inventory --private-key ~/.ssh/id_rsa --ssh-extra-args="-o ControlMaster=auto -p ControlPersist=60 -o StrictHostKeyCheck=no"
+            playbook-options: -u ec2-user -i inventory --private-key ~/.ssh/id_rsa
 
 workflows:
   application-provisioning:
