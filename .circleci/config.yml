@@ -33,7 +33,8 @@ jobs:
             version: 2.10.7
         - ansible-playbook/playbook:
             playbook: playbook.yml
-            playbook-options: -u ec2-user --private-key ~/.ssh/id_rsa -i inventory --ssh-extra-args="-o ControlMaster=auto -p ControlPersist=60 -o StrictHostKeyCheck=no"
+            playbook-options: --list-hosts
+#             playbook-options: -u ec2-user --private-key ~/.ssh/id_rsa -i inventory --ssh-extra-args="-o ControlMaster=auto -p ControlPersist=60 -o StrictHostKeyCheck=no"
 
 workflows:
   application-provisioning:
